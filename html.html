@@ -6,142 +6,40 @@
     <title>AI Tutor | PDevelopers Academy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { 
-            --bg: #05070a; 
-            --gold: #D4AF37; 
-            --accent: #00f2ea; 
-            --text: #f0f0f0; 
-            --card: #0a111a;
-            --code-bg: #1e1e1e;
-        }
+        :root { --bg: #05070a; --gold: #D4AF37; --accent: #00f2ea; --text: #f0f0f0; --card: #0a111a; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-        body { 
-            margin: 0; 
-            font-family: 'Inter', 'Segoe UI', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-            overflow: hidden;
-        }
+        .ai-main-container { flex: 1; display: flex; flex-direction: column; max-width: 1000px; margin: 0 auto; width: 95%; padding: 10px; height: 100%; }
+        .header { text-align: center; padding: 10px 0; }
+        h1 { font-size: 2.2rem; background: linear-gradient(45deg, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
 
-        .ai-main-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 95%;
-            padding: 10px;
-        }
-
-        .header { text-align: center; padding: 15px 0; }
-        h1 { 
-            font-size: 2.2rem; 
-            background: linear-gradient(45deg, #fff, var(--gold)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-        }
-
-        .status-msg { color: var(--accent); font-size: 1rem; margin-top: 5px; opacity: 0.8; }
-
-        /* --- Chat Display (The Fixed Part) --- */
+        /* --- Fixed Scroll Container --- */
         .chat-display {
             flex: 1;
             background: var(--card);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 15px;
-            margin: 15px 0;
+            margin: 10px 0;
             padding: 20px;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow-y: scroll; /* Force scroll */
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--bg);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
-        .message { 
-            margin-bottom: 25px; 
-            line-height: 1.6; 
-            word-wrap: break-word; 
-            white-space: pre-wrap; /* Yeh formatting preserve karega */
-        }
+        .chat-display::-webkit-scrollbar { width: 8px; }
+        .chat-display::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        .user-msg { 
-            text-align: right; 
-            color: var(--gold); 
-            font-weight: bold; 
-            background: rgba(212, 175, 55, 0.1);
-            padding: 10px 15px;
-            border-radius: 10px;
-            display: table;
-            margin-left: auto;
-        }
+        .message { margin-bottom: 25px; line-height: 1.6; clear: both; }
+        .user-msg { float: right; color: var(--gold); background: rgba(212, 175, 55, 0.1); padding: 10px 15px; border-radius: 15px 15px 0 15px; max-width: 80%; }
+        .ai-msg { float: left; color: var(--text); border-left: 4px solid var(--accent); background: rgba(0, 242, 234, 0.03); padding: 15px; border-radius: 0 15px 15px 15px; max-width: 85%; }
 
-        .ai-msg { 
-            color: var(--text); 
-            border-left: 4px solid var(--accent); 
-            padding-left: 20px;
-            background: rgba(0, 242, 234, 0.03);
-            padding: 15px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        /* --- Code Blocks & Lists Fix --- */
-        pre { 
-            background: #000 !important; 
-            padding: 15px; 
-            border-radius: 8px; 
-            overflow-x: auto; 
-            color: #50fa7b;
-            border: 1px solid #333;
-            margin: 15px 0;
-            font-family: 'Consolas', monospace;
-        }
-
+        pre { background: #000 !important; padding: 15px; border-radius: 8px; overflow-x: auto; color: #50fa7b; border: 1px solid #333; margin: 15px 0; font-family: 'Consolas', monospace; }
         code { font-family: 'Consolas', monospace; color: var(--accent); }
 
-        .ai-msg p { margin: 10px 0; }
-        .ai-msg ul, .ai-msg ol { margin-left: 20px; }
-
-        /* --- Input Styling --- */
-        .input-wrap {
-            display: flex;
-            background: #111;
-            border: 2px solid var(--accent);
-            border-radius: 50px;
-            padding: 5px 20px;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            padding: 12px 0;
-        }
-
-        button {
-            background: var(--accent);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #000;
-        }
-
-        button:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--accent); }
-
+        .input-wrap { display: flex; background: #111; border: 2px solid var(--accent); border-radius: 50px; padding: 5px 20px; gap: 10px; align-items: center; margin-top: auto; margin-bottom: 10px; }
+        input { flex: 1; background: transparent; border: none; color: white; font-size: 1rem; outline: none; padding: 12px 0; }
+        button { background: var(--accent); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; color: #000; }
     </style>
 </head>
 <body>
@@ -149,17 +47,17 @@
     <div class="ai-main-container">
         <div class="header">
             <h1>PDevelopers AI Tutor</h1>
-            <div class="status-msg">Expert in <b>HTML & Web Architecture</b></div>
+            <div class="status-msg" style="color:var(--accent); font-size:0.9rem;">High-Precision Coding Mode Active</div>
         </div>
 
         <div class="chat-display" id="chatWindow">
             <div class="message ai-msg">
-                Hello! I am PDevelopers AI. Ask me any question about coding or specific tags. I will explain the logic and provide clean examples.
+                Welcome to PDevelopers Academy. I have been calibrated for high-precision HTML guidance. How can I assist you in your architecture today?
             </div>
         </div>
 
         <div class="input-wrap">
-            <input type="text" id="userInput" placeholder="E.g., How to create a professional table?" onkeypress="if(event.key==='Enter') sendMessage()">
+            <input type="text" id="userInput" placeholder="Ask about specific tags..." onkeypress="if(event.key==='Enter') sendMessage()">
             <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -170,16 +68,17 @@
         async function sendMessage() {
             const input = document.getElementById('userInput');
             const question = input.value.trim();
-
             if (!question) return;
 
-            // User Message
-            chatWindow.innerHTML += `<div class="message user-msg">You: ${question}</div>`;
+            // Add User Message
+            chatWindow.innerHTML += `<div class="message user-msg">${question}</div>`;
             input.value = '';
             
-            // Loading Placeholder
-            const loadingId = 'ai-loading-' + Date.now();
-            chatWindow.innerHTML += `<div class="message ai-msg" id="${loadingId}">Thinking...</div>`;
+            // Scroll to bottom after user message
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            const loadingId = 'ai-' + Date.now();
+            chatWindow.innerHTML += `<div class="message ai-msg" id="${loadingId}">Analyzing structure...</div>`;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
             try {
@@ -194,21 +93,21 @@
 
                 const loadingElement = document.getElementById(loadingId);
                 
-                // --- Formatting Logic (Markdown to HTML) ---
-                // 1. Code Blocks
+                // Formatting
                 aiResponse = aiResponse.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-                // 2. Bold text
                 aiResponse = aiResponse.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-                // 3. Simple line breaks
                 aiResponse = aiResponse.replace(/\n/g, '<br>');
                 
                 loadingElement.innerHTML = aiResponse;
 
-            } catch (error) {
-                document.getElementById(loadingId).innerText = "Error: System is currently taking a nap. Check Hugging Face Space!";
-            }
+                // Final Scroll to bottom after AI response
+                setTimeout(() => {
+                    chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: 'smooth' });
+                }, 100);
 
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            } catch (error) {
+                document.getElementById(loadingId).innerText = "The Academy servers are busy. Check Space status!";
+            }
         }
     </script>
 </body>
