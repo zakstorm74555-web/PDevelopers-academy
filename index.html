@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | PDevelopers Academy</title>
+    
+    <link rel="icon" type="image/png" href="icon.png">
+    <meta name="description" content="PDevelopers Academy: Master HTML, CSS, JS, Python, and C++ from basic to pro level.">
+    <meta name="keywords" content="PDevelopers, Coding Academy, Learn Python, Web Development, Programming Courses">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary: #004D40; 
+            --secondary: #D4AF37; 
+            --fb: #1877F2; 
+            --google: #DB4437; 
+            --bg: #f4f7f6;
+        }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+
+        .login-box { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center; 
+        }
+
+        .logo-text { 
+            font-size: 28px; 
+            font-weight: bold; 
+            color: var(--primary); 
+            margin-bottom: 5px; 
+            letter-spacing: 1px;
+        }
+
+        .subtitle { 
+            color: #666; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+        }
+        
+        .social-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            border: none; 
+            border-radius: 8px; 
+            color: white; 
+            cursor: pointer; 
+            font-size: 16px; 
+            transition: 0.3s; 
+            text-decoration: none; 
+        }
+
+        .btn-g { background: var(--google); }
+        .btn-f { background: var(--fb); }
+
+        .social-btn:hover { 
+            opacity: 0.9; 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .divider { 
+            display: flex; 
+            align-items: center; 
+            margin: 25px 0; 
+            color: #999; 
+            font-size: 13px; 
+            text-transform: uppercase;
+        }
+
+        .divider::before, .divider::after { 
+            content: ""; 
+            flex: 1; 
+            height: 1px; 
+            background: #eee; 
+            margin: 0 15px; 
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 15px;
+            outline-color: var(--primary);
+        }
+
+        .btn-main { 
+            width: 100%; 
+            padding: 14px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 18px; 
+            font-weight: 600;
+            cursor: pointer; 
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover { 
+            background: #00332a; 
+            box-shadow: 0 4px 10px rgba(0,77,64,0.3);
+        }
+
+        .signup-link {
+            margin-top: 25px; 
+            font-size: 14px; 
+            color: #777; 
+        }
+
+        .signup-link a { 
+            color: var(--primary); 
+            font-weight: bold; 
+            text-decoration: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <div class="logo-text">PDevelopers Academy</div>
+        <div class="subtitle">Elevating Code from Basic to Pro</div>
+
+        <button onclick="loginGoogle()" class="social-btn btn-g">
+            <i class="fab fa-google"></i> Continue with Google
+        </button>
+        <button onclick="loginFacebook()" class="social-btn btn-f">
+            <i class="fab fa-facebook-f"></i> Continue with Facebook
+        </button>
+
+        <div class="divider">Or Sign in with Email</div>
+
+        <div class="input-group">
+            <input type="email" id="email" placeholder="Email Address">
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+        
+        <button class="btn-main" onclick="loginEmail()">Login</button>
+
+        <p class="signup-link">
+            Don't have an account? <a href="#">Create Account</a>
+        </p>
+    </div>
+
+    <script>
+        // ==========================================
+        // 🛑 INSERT YOUR FIREBASE CONFIG HERE
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        // ==========================================
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // --- Google Login Logic ---
+        function loginGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then((result) => {
+                console.log("Logged in:", result.user.displayName);
+                window.location.href = "dashboard.html"; 
+            }).catch((error) => alert(error.message));
+        }
+
+        // --- Facebook Login Logic ---
+        function loginFacebook() {
+            const provider = new firebase.auth.FacebookAuthProvider();
+            auth.signInWithPopup(provider).then((result) => {
+                console.log("Logged in:", result.user.displayName);
+                window.location.href = "dashboard.html";
+            }).catch((error) => alert(error.message));
+        }
+
+        // --- Email Login Logic ---
+        function loginEmail() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            
+            if(!email || !pass) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(() => { 
+                    window.location.href = "dashboard.html"; 
+                })
+                .catch((error) => alert(error.message));
+        }
+    </script>
+</body>
+</html>
