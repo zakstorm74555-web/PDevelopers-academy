@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Access | PDevelopers Academy</title>
+    <title>Dashboard | PDevelopers Academy</title>
     
     <link rel="icon" type="image/png" href="icon.png">
-    <meta name="description" content="PDevelopers Academy - The Future of Coding.">
-
-    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root {
@@ -21,183 +19,167 @@
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background: var(--bg-dark);
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            /* Unique Background Pattern */
+            min-height: 100vh;
             background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
             background-size: 40px 40px;
         }
 
-        .login-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px 40px;
-            border-radius: 30px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            position: relative;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        /* Branding Glow */
-        .login-card::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, var(--accent-gold), transparent, var(--electric-teal));
-            border-radius: 32px;
-            z-index: -1;
-            opacity: 0.3;
+        .header {
+            margin-bottom: 50px;
+            margin-top: 30px;
         }
 
-        .brand-header h1 {
-            font-size: 24px;
-            margin: 0;
-            letter-spacing: 3px;
+        .header h1 {
+            letter-spacing: 5px;
             text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .brand-header p {
-            font-size: 12px;
-            color: var(--accent-gold);
-            margin-bottom: 40px;
+        .header p {
+            color: var(--electric-teal);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* Grid System */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-teal);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 242, 234, 0.1);
+        }
+
+        .course-card i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        /* Language Specific Colors */
+        .html-icon { color: #E34F26; }
+        .css-icon { color: #1572B6; }
+        .js-icon { color: #F7DF1E; }
+        .py-icon { color: #3776AB; }
+        .php-icon { color: #777BB4; }
+        .cpp-icon { color: #00599C; }
+
+        .course-card h3 {
+            margin: 10px 0;
+            font-size: 1.5rem;
             letter-spacing: 1px;
         }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 25px;
+        .course-card p {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.5;
         }
 
-        input {
-            width: 100%;
-            padding: 15px 5px;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: 0.4s;
-        }
-
-        input:focus {
-            border-bottom: 1px solid var(--electric-teal);
-        }
-
-        .btn-join {
-            width: 100%;
-            padding: 16px;
-            background: #fff;
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 10px;
+            background: var(--accent-gold);
             color: #000;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: bold;
             text-transform: uppercase;
         }
 
-        .btn-join:hover {
-            background: var(--electric-teal);
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
-        }
-
-        .alt-action {
-            margin-top: 30px;
-            font-size: 13px;
-            color: #666;
-        }
-
-        .alt-action a {
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent-gold);
-            padding-bottom: 2px;
-        }
-
-        /* Loading Animation */
-        .spinner { display: none; margin-top: 10px; color: var(--electric-teal); font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <div class="brand-header">
+    <div class="container">
+        <div class="header">
             <h1>PDevelopers</h1>
-            <p>ADVANCED LEARNING ACADEMY</p>
+            <p>CHOOSE YOUR PATH TO MASTERY</p>
         </div>
 
-        <div class="input-box">
-            <input type="email" id="email" placeholder="Developer Email" required>
-        </div>
-        <div class="input-group">
-            <input type="password" id="password" placeholder="Secure Password" required>
-        </div>
+        <div class="course-grid">
+            
+            <a href="html.html" class="course-card">
+                <span class="badge">Beginner</span>
+                <i class="fab fa-html5 html-icon"></i>
+                <h3>HTML5</h3>
+                <p>The skeleton of the web. Learn structure and semantics.</p>
+            </a>
 
-        <button class="btn-join" onclick="handleLogin()">Authorize Access</button>
-        <div id="loader" class="spinner">Verifying Credentials...</div>
+            <a href="css.html" class="course-card">
+                <span class="badge">Creative</span>
+                <i class="fab fa-css3-alt css-icon"></i>
+                <h3>CSS3</h3>
+                <p>Master the art of design, layouts, and animations.</p>
+            </a>
 
-        <div class="alt-action">
-            Need an invite? <a href="#" onclick="handleSignup()">Create Account</a>
+            <a href="java.html" class="course-card">
+                <span class="badge">Power</span>
+                <i class="fab fa-java js-icon"></i>
+                <h3>JAVA</h3>
+                <p>Robust object-oriented programming for enterprise apps.</p>
+            </a>
+
+            <a href="python.html" class="course-card">
+                <span class="badge">Smart</span>
+                <i class="fab fa-python py-icon"></i>
+                <h3>PYTHON</h3>
+                <p>The language of AI, Data Science, and Automation.</p>
+            </a>
+
+            <a href="php.html" class="course-card">
+                <span class="badge">Dynamic</span>
+                <i class="fab fa-php php-icon"></i>
+                <h3>PHP</h3>
+                <p>Server-side scripting. The engine behind WordPress.</p>
+            </a>
+
+            <a href="cpp.html" class="course-card">
+                <span class="badge">Core</span>
+                <i class="fab fa-cuttlefish cpp-icon"></i>
+                <h3>C++</h3>
+                <p>High-performance systems and game development.</p>
+            </a>
+
         </div>
     </div>
 
-    <script>
-        // --- APPWRITE CONFIGURATION ---
-        const { Client, Account, ID } = Appwrite;
-        const client = new Client()
-            .setEndpoint('https://cloud.appwrite.io/v1') // Public Endpoint
-            .setProject('6997c37c000a9d9b3527'); // 🛑 REPLACE WITH YOUR APPWRITE PROJECT ID
-
-        const account = new Account(client);
-
-        async function handleLogin() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            const loader = document.getElementById('loader');
-
-            if(!email || !pass) { alert("Fields cannot be empty"); return; }
-
-            loader.style.display = "block";
-            try {
-                await account.createEmailSession(email, pass);
-                window.location.href = "dashboard.html";
-            } catch (error) {
-                alert("Login Failed: " + error.message);
-            } finally {
-                loader.style.display = "none";
-            }
-        }
-
-        async function handleSignup() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            
-            if(!email || !pass) { alert("Enter email and password to signup"); return; }
-
-            try {
-                // Appwrite doesn't need phone S2V for signup!
-                await account.create(ID.unique(), email, pass);
-                alert("Account created! Now click Authorize Access to login.");
-            } catch (error) {
-                alert("Signup Error: " + error.message);
-            }
-        }
-    </script>
 </body>
 </html>
