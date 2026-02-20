@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed HTML Masterclass by PDevelopers Academy.">
+    <meta name="author" content="PDevelopers Academy">
+    <title>HTML Professional Documentation | PDevelopers</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bg: #0a0e14; --gold: #D4AF37; --accent: #00f2ea; --text: #e0e0e0; --code: #1e1e1e; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; }
+        
+        /* Sidebar Navigation */
+        .sidebar { width: 300px; height: 100vh; background: #111821; position: fixed; overflow-y: auto; padding: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
+        .sidebar a { display: block; color: #888; text-decoration: none; padding: 12px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .sidebar a:hover { color: var(--accent); }
+
+        /* Main Content */
+        .content { margin-left: 350px; padding: 60px; max-width: 1000px; width: 100%; }
+        
+        /* Elements Styling */
+        h1 { font-size: 3.5rem; background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { color: var(--accent); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-top: 50px; }
+        
+        .code-block { background: var(--code); padding: 25px; border-radius: 12px; border: 1px solid #333; position: relative; margin: 20px 0; }
+        .tag-desc { color: var(--gold); font-weight: bold; }
+        
+        /* Banner Example Class */
+        .banner-demo { width: 100%; height: 150px; background: linear-gradient(45deg, #004D40, #00f2ea); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2 style="font-size: 1.2rem; color: var(--gold);">HTML Elements</h2>
+        <a href="#meta">Meta & Head Tags</a>
+        <a href="#header">Header & Banner</a>
+        <a href="#div">Divisions (The Div)</a>
+        <a href="#images">Images & Icons</a>
+        <a href="#buttons">Buttons & Links</a>
+        <a href="#forms">Forms & Inputs</a>
+        <a href="#structure">Complete Web Blueprint</a>
+    </nav>
+
+    <main class="content">
+        <h1>HTML Pro Documentation</h1>
+        <p>This is the definitive guide to every major HTML5 element used in modern industry.</p>
+
+        <section id="meta">
+            <h2>1. The Head & Meta Tags</h2>
+            <p>Meta tags provide metadata about the HTML document. They are invisible to users but critical for search engines (SEO).</p>
+            <div class="code-block">
+                <pre>
+&lt;head&gt;
+  <span class="tag-desc">&lt;!-- Character encoding --&gt;</span>
+  &lt;meta charset="UTF-8"&gt;
+  <span class="tag-desc">&lt;!-- Responsive Viewport --&gt;</span>
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  <span class="tag-desc">&lt;!-- SEO Description --&gt;</span>
+  &lt;meta name="description" content="Learn Coding at PDevelopers"&gt;
+&lt;/head&gt;</pre>
+            </div>
+        </section>
+
+        <section id="header">
+            <h2>2. Header & Banner</h2>
+            <p>The <code>&lt;header&gt;</code> contains the logo and navigation. A "Banner" is usually a <code>&lt;section&gt;</code> or <code>&lt;div&gt;</code> with a background image.</p>
+            <div class="banner-demo">PDEVELOPERS ACADEMY BANNER</div>
+            <div class="code-block">
+                <pre>
+&lt;header&gt;
+  &lt;h1&gt;Logo&lt;/h1&gt;
+  &lt;nav&gt; ... &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;section class="banner"&gt;
+  &lt;h2&gt;Welcome to the Future&lt;/h2&gt;
+&lt;/section&gt;</pre>
+            </div>
+        </section>
+
+        <section id="div">
+            <h2>3. The Mighty &lt;div&gt;</h2>
+            <p>The <code>&lt;div&gt;</code> is a generic container. It's the most used tag to group elements for styling with CSS.</p>
+            <div class="code-block">
+                <pre>
+&lt;div class="container"&gt;
+  &lt;div class="card"&gt;
+    &lt;p&gt;This is inside a division block.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+        </section>
+
+        <section id="images">
+            <h2>4. Images & Graphics</h2>
+            <p>Use <code>&lt;img&gt;</code> to embed photos. Always use the <code>alt</code> attribute for accessibility.</p>
+            <div class="code-block">
+                <pre>
+&lt;img src="icon.png" alt="PDevelopers Logo" width="150" height="150"&gt;</pre>
+            </div>
+        </section>
+
+        <section id="buttons">
+            <h2>5. Buttons & Links (&lt;a&gt;)</h2>
+            <p>Links (<code>&lt;a&gt;</code>) navigate to URLs, while <code>&lt;button&gt;</code> tags are used for actions (like submitting forms).</p>
+            <div class="code-block">
+                <pre>
+<span class="tag-desc">&lt;!-- Hyperlink --&gt;</span>
+&lt;a href="https://google.com" target="_blank"&gt;Open Link&lt;/a&gt;
+
+<span class="tag-desc">&lt;!-- Button --&gt;</span>
+&lt;button type="button" onclick="alert('Hello')"&gt;Click Me!&lt;/button&gt;</pre>
+            </div>
+        </section>
+
+        <section id="structure">
+            <h2 style="color: var(--gold); border-color: var(--gold);">9. Professional Page Structure</h2>
+            <p>A full, modern HTML5 page combining all elements discussed above:</p>
+
+            
+
+            <div class="code-block">
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Full Website Structure&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Courses&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;div class="banner"&gt;
+            &lt;img src="banner.jpg" alt="Academy Banner"&gt;
+            &lt;h1&gt;Learn to Code&lt;/h1&gt;
+            &lt;button&gt;Get Started&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;section&gt;
+            &lt;article&gt;
+                &lt;h2&gt;HTML Basics&lt;/h2&gt;
+                &lt;p&gt;Content goes here...&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;Copyright © 2026 PDevelopers Academy&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+        </section>
+        
+        <div style="height: 100px;"></div>
+    </main>
+
+</body>
+</html>
