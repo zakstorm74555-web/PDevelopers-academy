@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Mastery | PDevelopers Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f111a;
+            --sidebar: #1a1d29;
+            --php-purple: #777BB4; /* Classic PHP Purple */
+            --php-dark: #4F5B93;
+            --accent: #00f2ea;
+            --text: #c3c7d1;
+            --code-bg: #000;
+        }
+
+        body { margin: 0; display: flex; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+        
+        .sidebar { width: 300px; height: 100vh; background: var(--sidebar); position: fixed; overflow-y: auto; padding: 30px; border-right: 1px solid rgba(119, 123, 180, 0.2); }
+        .sidebar a { display: block; color: #8b949e; text-decoration: none; padding: 12px 0; font-size: 14px; transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .sidebar a:hover { color: var(--php-purple); padding-left: 10px; }
+
+        .content { margin-left: 350px; padding: 60px; max-width: 1000px; width: 100%; }
+        h1 { font-size: 3.5rem; color: var(--php-purple); margin-bottom: 20px; font-weight: 800; }
+        
+        .master-card {
+            background: #1a1d29;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .property-title { color: var(--php-purple); font-size: 1.8rem; font-weight: bold; margin-bottom: 20px; border-left: 5px solid var(--php-purple); padding-left: 15px; }
+        code { color: var(--accent); font-family: 'Fira Code', monospace; }
+        pre { background: var(--code-bg); padding: 25px; border-radius: 12px; overflow-x: auto; color: #777BB4; border: 1px solid #333; line-height: 1.6; }
+        
+        .alert-box { background: rgba(255, 0, 0, 0.05); border-left: 4px solid #ff4444; padding: 15px; margin: 20px 0; color: #ff8888; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2 style="color: var(--php-purple);"><i class="fab fa-php"></i> PHP Backend</h2>
+        <a href="#server">1. Server-Side Execution</a>
+        <a href="#syntax">2. Basic Syntax & Variables</a>
+        <a href="#superglobals">3. Superglobals ($_GET, $_POST)</a>
+        <a href="#mysql">4. Database (PDO vs MySQLi)</a>
+        <a href="#sessions">5. Session & Cookie Control</a>
+        <a href="#security">6. PHP Security (SQL Injection)</a>
+    </nav>
+
+    <main class="content">
+        <h1>PHP Engine</h1>
+        <p>PHP: Hypertext Preprocessor. The engine that powers 80% of the web, including Facebook and WordPress.</p>
+
+        <section id="server" class="master-card">
+            <div class="property-title">1. Client vs Server Side</div>
+            <p>Unlike HTML/CSS which run in the browser, PHP runs on the <strong>Server</strong> (Apache/Nginx). The browser never sees your PHP code, only the HTML result.</p>
+            
+            <pre>
+&lt;?php
+  // Browser will never see this comment
+  echo "&lt;h1&gt;Hello from the Server!&lt;/h1&gt;";
+?&gt;</pre>
+        </section>
+
+        <section id="superglobals" class="master-card">
+            <div class="property-title">2. Data Handling: $_POST & $_GET</div>
+            <p>This is how we collect data from HTML forms. <strong>$_POST</strong> is secure for passwords, while <strong>$_GET</strong> shows data in the URL.</p>
+            <pre>
+// Collecting data from a login form
+$username = $_POST['user'];
+$password = $_POST['pass'];
+
+echo "Welcome back, " . $username;</pre>
+        </section>
+
+        <section id="mysql" class="master-card">
+            <div class="property-title">3. Connecting to MySQL (The Heart)</div>
+            <p>A static site becomes a "Web App" when it connects to a database. We use <strong>PDO</strong> because it's more secure.</p>
+            <pre>
+$host = 'localhost';
+$db   = 'academy_db';
+$user = 'root';
+$pass = '';
+
+$pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+echo "Connected to Jhelum Database!";</pre>
+        </section>
+
+        <section id="security" class="master-card">
+            <div class="property-title">4. Security: The Golden Rule</div>
+            <p>Never trust user input. Hackers use <strong>SQL Injection</strong> to steal data. Always use Prepared Statements.</p>
+            <div class="alert-box">
+                <strong>CRITICAL:</strong> Never write: <code>"SELECT * FROM users WHERE id = $id"</code>. Always use placeholders.
+            </div>
+            <pre>
+// The Safe Way (Prepared Statements)
+$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+$stmt->execute([$email]);
+$user = $stmt->fetch();</pre>
+        </section>
+
+        <div style="height: 100px;"></div>
+    </main>
+
+</body>
+</html>
