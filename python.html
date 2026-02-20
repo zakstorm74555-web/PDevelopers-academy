@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Deep-Dive | PDevelopers Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --sidebar: #1e293b;
+            --py-yellow: #ffde57;
+            --py-blue: #4584b6;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --code-bg: #000;
+        }
+
+        body { margin: 0; display: flex; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+        
+        .sidebar { width: 300px; height: 100vh; background: var(--sidebar); position: fixed; overflow-y: auto; padding: 30px; border-right: 1px solid rgba(56, 189, 248, 0.2); }
+        .sidebar a { display: block; color: #94a3b8; text-decoration: none; padding: 12px 0; font-size: 14px; transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .sidebar a:hover { color: var(--py-yellow); padding-left: 10px; }
+
+        .content { margin-left: 350px; padding: 60px; max-width: 1000px; width: 100%; }
+        h1 { font-size: 3.5rem; background: linear-gradient(to right, var(--py-blue), var(--py-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .master-card {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .property-title { color: var(--py-yellow); font-size: 1.8rem; font-weight: bold; margin-bottom: 20px; border-left: 5px solid var(--py-blue); padding-left: 15px; }
+        code { color: var(--accent); font-family: 'Fira Code', monospace; }
+        pre { background: var(--code-bg); padding: 25px; border-radius: 12px; overflow-x: auto; color: #d1d1d1; border: 1px solid #334155; line-height: 1.6; }
+        
+        .pro-tip { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 15px; margin: 20px 0; font-style: italic; color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2 style="color: var(--py-yellow);"><i class="fab fa-python"></i> Python Core</h2>
+        <a href="#interpreter">1. How Python Works (PVM)</a>
+        <a href="#dynamic">2. Dynamic Typing & Mutability</a>
+        <a href="#ds">3. Data Structures (Deep Dive)</a>
+        <a href="#comprehensions">4. List Comprehensions</a>
+        <a href="#decorators">5. Decorators & Closures</a>
+        <a href="#magic">6. Magic Methods (__init__)</a>
+    </nav>
+
+    <main class="content">
+        <h1>Python Masterclass</h1>
+        <p>Beyond simple scripts: Mastering the Pythonic way of engineering software.</p>
+
+        <section id="interpreter" class="master-card">
+            <div class="property-title">1. The Python Execution Flow</div>
+            <p>Python is not purely interpreted; it's compiled to <strong>Bytecode</strong> first and then executed by the <strong>PVM (Python Virtual Machine)</strong>.</p>
+            
+            <pre>
+# .py Source Code -> Compiler -> .pyc Bytecode -> PVM -> Hardware Output
+# This makes Python platform-independent.</pre>
+        </section>
+
+        <section id="ds" class="master-card">
+            <div class="property-title">2. Deep Dive: Mutable vs Immutable</div>
+            <p>Understanding memory is crucial. If you don't know the difference between a List and a Tuple, your memory management will fail.</p>
+            <ul>
+                <li><strong>Lists (Mutable):</strong> Can be changed after creation. <code>[1, 2, 3]</code></li>
+                <li><strong>Tuples (Immutable):</strong> Faster, safer, cannot be changed. <code>(1, 2, 3)</code></li>
+                <li><strong>Dictionaries:</strong> Hash-map based key-value pairs. <code>{"id": 1}</code></li>
+            </ul>
+            <div class="pro-tip">Pro Tip: Use Tuples for data that shouldn't change to save RAM and increase speed.</div>
+        </section>
+
+        <section id="comprehensions" class="master-card">
+            <div class="property-title">3. List Comprehensions</div>
+            <p>The "Pythonic" way to create lists in a single line. It's faster and more readable.</p>
+            <pre>
+# Normal Way
+squares = []
+for x in range(10):
+    squares.append(x*x)
+
+# Pythonic Way
+squares = [x*x for x in range(10) if x % 2 == 0]</pre>
+        </section>
+
+        <section id="decorators" class="master-card">
+            <div class="property-title">4. Decorators (@)</div>
+            <p>Decorators allow you to modify the behavior of a function without changing its source code. This is "Meta-Programming".</p>
+            <pre>
+def my_decorator(func):
+    def wrapper():
+        print("Something before the function.")
+        func()
+        print("Something after.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello PDevelopers!")</pre>
+        </section>
+
+        <section id="magic" class="master-card">
+            <div class="property-title">5. Magic/Dunder Methods</div>
+            <p>These are methods with double underscores <code>__</code> that let you use Python's built-in syntax with your own objects.</p>
+            <pre>
+class Book:
+    def __init__(self, title):
+        self.title = title
+
+    def __str__(self):
+        return f"Book Title: {self.title}"
+
+b = Book("Python Pro Guide")
+print(b) # This calls __str__ automatically</pre>
+        </section>
+
+        <div style="height: 100px;"></div>
+    </main>
+
+</body>
+</html>
