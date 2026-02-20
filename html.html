@@ -3,142 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Complete HTML Codex | PDevelopers Academy</title>
+    <title>AI Tutor | PDevelopers Academy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #05070a; --gold: #D4AF37; --accent: #00f2ea; --text: #f0f0f0; --code-bg: #000; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; }
-        
-        /* Sidebar Index */
-        .sidebar { width: 320px; height: 100vh; background: #0a0e14; position: fixed; overflow-y: auto; padding: 40px 20px; border-right: 2px solid var(--gold); }
-        .sidebar h2 { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .sidebar a { display: block; color: #888; text-decoration: none; padding: 10px 0; font-size: 13px; border-bottom: 1px solid #111; transition: 0.3s; }
-        .sidebar a:hover { color: var(--accent); padding-left: 10px; }
+        :root { 
+            --bg: #05070a; 
+            --gold: #D4AF37; 
+            --accent: #00f2ea; 
+            --text: #f0f0f0; 
+            --card: #0a111a;
+        }
 
-        /* Main Content */
-        .content { margin-left: 350px; padding: 60px; max-width: 1100px; width: 100%; }
-        h1 { font-size: 3.5rem; background: linear-gradient(45deg, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
-        
-        .section-card { background: #0a0e14; border: 1px solid #1a1a1a; padding: 40px; margin: 40px 0; border-radius: 20px; }
-        .tag-title { color: var(--accent); font-family: 'Fira Code', monospace; font-size: 1.8rem; margin-bottom: 10px; }
-        .syntax { background: var(--code-bg); color: #50fa7b; padding: 15px; border-radius: 8px; font-size: 0.9rem; margin: 15px 0; border: 1px solid #333; }
-        
-        /* AI & Lab UI */
-        .ai-panel { position: fixed; bottom: 20px; right: 20px; width: 380px; background: #111; border: 2px solid var(--accent); border-radius: 15px; z-index: 1000; }
-        .ai-header { background: var(--accent); color: #000; padding: 12px; font-weight: bold; border-radius: 13px 13px 0 0; }
-        .ai-chat { height: 250px; overflow-y: auto; padding: 15px; font-size: 13px; background: #000; }
-        .ai-input-wrap { display: flex; border-top: 1px solid #222; }
-        .ai-input-wrap input { flex: 1; background: transparent; border: none; color: white; padding: 12px; outline: none; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-box { background: #111; padding: 40px; border-radius: 20px; border: 2px solid var(--gold); width: 500px; text-align: center; }
-        .btn-action { background: var(--gold); color: #000; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Full Screen AI Wrapper */
+        .ai-main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 { 
+            font-size: 2.5rem; 
+            background: linear-gradient(45deg, #fff, var(--gold)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .status-msg {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Chat Display Area */
+        .chat-display {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin: 20px 0;
+            padding: 25px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .message { margin-bottom: 20px; line-height: 1.6; }
+        .user-msg { text-align: right; color: var(--gold); font-weight: bold; }
+        .ai-msg { color: var(--text); border-left: 3px solid var(--accent); padding-left: 15px; }
+
+        /* Input Area */
+        .input-wrap {
+            display: flex;
+            background: #111;
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 10px 20px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            padding: 10px 0;
+        }
+
+        button {
+            background: var(--accent);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+        }
+
+        button:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--accent); }
+
+        pre { 
+            background: #000; 
+            padding: 15px; 
+            border-radius: 10px; 
+            overflow-x: auto; 
+            color: #50fa7b;
+            border: 1px solid #333;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="sidebar">
-        <h2>HTML CATEGORIES</h2>
-        <a href="#root">Root & Metadata</a>
-        <a href="#content">Content Sectioning</a>
-        <a href="#text">Text Formatting</a>
-        <a href="#media">Multimedia & Embeds</a>
-        <a href="#tables">Tabular Data</a>
-        <a href="#forms">Forms & Interactive</a>
-        <a href="#deprecated">Deprecated Tags</a>
-    </nav>
+    <div class="ai-main-container">
+        <div class="header">
+            <h1>PDevelopers AI Tutor</h1>
+            <div class="status-msg">I know about <b>HTML</b>. How can I help you today?</div>
+        </div>
 
-    <main class="content">
-        <h1>HTML Master Encyclopedia</h1>
-        <p style="color: var(--gold);">The most comprehensive guide for professional developers.</p>
-
-        <section id="root" class="section-card">
-            <div class="tag-title">&lt;!DOCTYPE html&gt;</div>
-            <p>Declares the document type and HTML version. Essential for modern rendering.</p>
-            <div class="syntax">&lt;!DOCTYPE html&gt;</div>
-
-            <div class="tag-title">&lt;html&gt;</div>
-            <p>The root element that wraps all other HTML content.</p>
-            <div class="syntax">&lt;html lang="en"&gt; ... &lt;/html&gt;</div>
-        </section>
-
-        <section id="media" class="section-card">
-            <div class="tag-title">&lt;audio&gt;</div>
-            <p>Embeds audio content like music or podcasts directly into the page.</p>
-            <div class="syntax">&lt;audio controls&gt; &lt;source src="audio.mp3"&gt; &lt;/audio&gt;</div>
-        </section>
-
-        <section id="forms" class="section-card">
-            <div class="tag-title">&lt;fieldset&gt;</div>
-            <p>Groups related form elements together for better organization and accessibility.</p>
-            <div class="syntax">&lt;fieldset&gt; &lt;legend&gt;User Info&lt;/legend&gt; ... &lt;/fieldset&gt;</div>
-        </section>
-
-        <div class="ai-panel">
-            <div class="ai-header">PDevelopers AI Assistant <i class="fas fa-robot"></i></div>
-            <div class="ai-chat" id="aiChat">AI: I have mastered all HTML tags. Ask me about any tag!</div>
-            <div class="ai-input-wrap">
-                <input type="text" id="aiIn" placeholder="Which tag is used for bold text?" onkeypress="if(event.key==='Enter') askAI()">
-                <button onclick="askAI()" style="background:var(--accent); border:none; padding:10px;"><i class="fas fa-paper-plane"></i></button>
+        <div class="chat-display" id="chatWindow">
+            <div class="message ai-msg">
+                Hello! I am connected to the Qwen-Coder engine. Ask me anything about tags, structure, or debugging your code.
             </div>
         </div>
 
-        <div id="labModal" class="modal">
-            <div class="modal-box">
-                <h2 style="color: var(--gold);">PDevelopers Submission Lab</h2>
-                <form action="https://formspree.io/f/meelllpa" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="name" placeholder="Your Name" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;" required>
-                    <input type="email" name="email" placeholder="Email Address" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;" required>
-                    <input type="url" name="url" placeholder="Project URL (Optional)" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;">
-                    <input type="file" name="file" accept=".html" style="color:white; margin:15px 0;" required>
-                    <button type="submit" class="btn-action" style="width:100%;">SEND TO COACH 📧</button>
-                </form>
-                <button onclick="closeModal()" style="background:none; border:none; color:#555; cursor:pointer; margin-top:20px;">Close</button>
-            </div>
+        <div class="input-wrap">
+            <input type="text" id="userInput" placeholder="Ask about any tag or logic..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
-
-        <button class="btn-action" style="position:fixed; bottom:20px; left:350px;" onclick="openModal()">TRY IT YOURSELF 🚀</button>
-
-    </main>
+    </div>
 
     <script>
-        function openModal() { document.getElementById('labModal').style.display='flex'; }
-        function closeModal() { document.getElementById('labModal').style.display='none'; }
+        const chatWindow = document.getElementById('chatWindow');
 
-        // Mukkamal knowledge base jo aapne di hai
-        const tagKB = {
-            "doctype": "Declares the document type and HTML version. Syntax: <!DOCTYPE html>",
-            "abbr": "Defines an abbreviation or acronym with a tooltip. Syntax: <abbr title='...'>",
-            "address": "Specifies contact information for a person or organization.",
-            "anchor": "Creates a hyperlink to another page or location. Syntax: <a href='...'>",
-            "article": "Represents a self-contained content section.",
-            "aside": "Defines content aside from the main content.",
-            "audio": "Embeds audio content like music or podcasts.",
-            "base": "Sets a base URL for relative links.",
-            "bdi": "Isolates text direction from surrounding content.",
-            "blockquote": "Displays long quotations from other sources.",
-            "body": "Defines the main content of the HTML page.",
-            "bold": "Makes text bold without extra importance. Syntax: <b>",
-            "canvas": "Defines a drawable area for graphics and animations.",
-            "fieldset": "Groups related form elements together.",
-            "iframe": "Embeds another HTML document in a frame.",
-            "meta": "Stores metadata about the HTML document."
-            // ... (Baaki saare 100+ tags yahan loop mein check honge)
-        };
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
 
-        function askAI() {
-            const val = document.getElementById('aiIn').value.toLowerCase();
-            const chat = document.getElementById('aiChat');
-            let res = "I know this tag! It's used to structure your web architecture. Check the sidebar for full technical details.";
+            if (!question) return;
+
+            // Display User Message
+            chatWindow.innerHTML += `<div class="message user-msg">You: ${question}</div>`;
+            input.value = '';
             
-            for(let key in tagKB) {
-                if(val.includes(key)) { res = tagKB[key]; break; }
+            // Loading Placeholder
+            const loadingId = 'ai-loading-' + Date.now();
+            chatWindow.innerHTML += `<div class="message ai-msg" id="${loadingId}">Thinking...</div>`;
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            try {
+                // Connecting to your Hugging Face Space
+                const response = await fetch('https://paradoxstudio9807-pdevacademy.hf.space/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const data = await response.json();
+                const aiResponse = data.answer;
+
+                // Replace loading text with actual AI answer
+                const loadingElement = document.getElementById(loadingId);
+                
+                // Converting code blocks in AI response to formatted blocks
+                const formattedResponse = aiResponse.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+                
+                loadingElement.innerHTML = formattedResponse;
+
+            } catch (error) {
+                document.getElementById(loadingId).innerText = "Error connecting to AI. Please check Hugging Face Space status.";
+                console.error("HF Error:", error);
             }
 
-            chat.innerHTML += `<p style='color:white; text-align:right;'>User: ${val}</p>`;
-            chat.innerHTML += `<p style='color:var(--accent);'>AI: ${res}</p>`;
-            document.getElementById('aiIn').value = '';
-            chat.scrollTop = chat.scrollHeight;
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
     </script>
 </body>
