@@ -3,230 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | PDevelopers Academy</title>
+    <title>Elite Access | PDevelopers Academy</title>
     
     <link rel="icon" type="image/png" href="icon.png">
-    <meta name="description" content="PDevelopers Academy: Master HTML, CSS, JS, Python, and C++ from basic to pro level.">
-    <meta name="keywords" content="PDevelopers, Coding Academy, Learn Python, Web Development, Programming Courses">
-    
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <meta name="description" content="PDevelopers Academy - The Future of Coding.">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+
     <style>
-        :root { 
-            --primary: #004D40; 
-            --secondary: #D4AF37; 
-            --fb: #1877F2; 
-            --google: #DB4437; 
-            --bg: #f4f7f6;
-        }
-        
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: var(--bg); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
+        :root {
+            --bg-dark: #0a0e14;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --accent-gold: #D4AF37;
+            --electric-teal: #00f2ea;
+            --text-main: #e0e0e0;
         }
 
-        .login-box { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 400px; 
-            text-align: center; 
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Unique Background Pattern */
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
         }
 
-        .logo-text { 
-            font-size: 28px; 
-            font-weight: bold; 
-            color: var(--primary); 
-            margin-bottom: 5px; 
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* Branding Glow */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-gold), transparent, var(--electric-teal));
+            border-radius: 32px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .brand-header h1 {
+            font-size: 24px;
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .brand-header p {
+            font-size: 12px;
+            color: var(--accent-gold);
+            margin-bottom: 40px;
             letter-spacing: 1px;
         }
 
-        .subtitle { 
-            color: #666; 
-            font-size: 14px; 
-            margin-bottom: 30px; 
-        }
-        
-        .social-btn { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 12px; 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 15px; 
-            border: none; 
-            border-radius: 8px; 
-            color: white; 
-            cursor: pointer; 
-            font-size: 16px; 
-            transition: 0.3s; 
-            text-decoration: none; 
+        .input-box {
+            position: relative;
+            margin-bottom: 25px;
         }
 
-        .btn-g { background: var(--google); }
-        .btn-f { background: var(--fb); }
-
-        .social-btn:hover { 
-            opacity: 0.9; 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        input {
+            width: 100%;
+            padding: 15px 5px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.4s;
         }
 
-        .divider { 
-            display: flex; 
-            align-items: center; 
-            margin: 25px 0; 
-            color: #999; 
-            font-size: 13px; 
+        input:focus {
+            border-bottom: 1px solid var(--electric-teal);
+        }
+
+        .btn-join {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
             text-transform: uppercase;
         }
 
-        .divider::before, .divider::after { 
-            content: ""; 
-            flex: 1; 
-            height: 1px; 
-            background: #eee; 
-            margin: 0 15px; 
+        .btn-join:hover {
+            background: var(--electric-teal);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
         }
 
-        .input-group {
-            text-align: left;
-            margin-bottom: 15px;
+        .alt-action {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
         }
 
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 15px;
-            outline-color: var(--primary);
+        .alt-action a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 2px;
         }
 
-        .btn-main { 
-            width: 100%; 
-            padding: 14px; 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 18px; 
-            font-weight: 600;
-            cursor: pointer; 
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-
-        .btn-main:hover { 
-            background: #00332a; 
-            box-shadow: 0 4px 10px rgba(0,77,64,0.3);
-        }
-
-        .signup-link {
-            margin-top: 25px; 
-            font-size: 14px; 
-            color: #777; 
-        }
-
-        .signup-link a { 
-            color: var(--primary); 
-            font-weight: bold; 
-            text-decoration: none; 
-        }
+        /* Loading Animation */
+        .spinner { display: none; margin-top: 10px; color: var(--electric-teal); font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <div class="logo-text">PDevelopers Academy</div>
-        <div class="subtitle">Elevating Code from Basic to Pro</div>
+    <div class="login-card">
+        <div class="brand-header">
+            <h1>PDevelopers</h1>
+            <p>ADVANCED LEARNING ACADEMY</p>
+        </div>
 
-        <button onclick="loginGoogle()" class="social-btn btn-g">
-            <i class="fab fa-google"></i> Continue with Google
-        </button>
-        <button onclick="loginFacebook()" class="social-btn btn-f">
-            <i class="fab fa-facebook-f"></i> Continue with Facebook
-        </button>
-
-        <div class="divider">Or Sign in with Email</div>
-
-        <div class="input-group">
-            <input type="email" id="email" placeholder="Email Address">
+        <div class="input-box">
+            <input type="email" id="email" placeholder="Developer Email" required>
         </div>
         <div class="input-group">
-            <input type="password" id="password" placeholder="Password">
+            <input type="password" id="password" placeholder="Secure Password" required>
         </div>
-        
-        <button class="btn-main" onclick="loginEmail()">Login</button>
 
-        <p class="signup-link">
-            Don't have an account? <a href="#">Create Account</a>
-        </p>
+        <button class="btn-join" onclick="handleLogin()">Authorize Access</button>
+        <div id="loader" class="spinner">Verifying Credentials...</div>
+
+        <div class="alt-action">
+            Need an invite? <a href="#" onclick="handleSignup()">Create Account</a>
+        </div>
     </div>
 
     <script>
-        // ==========================================
-        // 🛑 INSERT YOUR FIREBASE CONFIG HERE
-        // ==========================================
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        // ==========================================
+        // --- APPWRITE CONFIGURATION ---
+        const { Client, Account, ID } = Appwrite;
+        const client = new Client()
+            .setEndpoint('https://cloud.appwrite.io/v1') // Public Endpoint
+            .setProject('6997c37c000a9d9b3527'); // 🛑 REPLACE WITH YOUR APPWRITE PROJECT ID
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const account = new Account(client);
 
-        // --- Google Login Logic ---
-        function loginGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).then((result) => {
-                console.log("Logged in:", result.user.displayName);
-                window.location.href = "dashboard.html"; 
-            }).catch((error) => alert(error.message));
-        }
+        async function handleLogin() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const loader = document.getElementById('loader');
 
-        // --- Facebook Login Logic ---
-        function loginFacebook() {
-            const provider = new firebase.auth.FacebookAuthProvider();
-            auth.signInWithPopup(provider).then((result) => {
-                console.log("Logged in:", result.user.displayName);
+            if(!email || !pass) { alert("Fields cannot be empty"); return; }
+
+            loader.style.display = "block";
+            try {
+                await account.createEmailSession(email, pass);
                 window.location.href = "dashboard.html";
-            }).catch((error) => alert(error.message));
+            } catch (error) {
+                alert("Login Failed: " + error.message);
+            } finally {
+                loader.style.display = "none";
+            }
         }
 
-        // --- Email Login Logic ---
-        function loginEmail() {
+        async function handleSignup() {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
             
-            if(!email || !pass) {
-                alert("Please fill in all fields");
-                return;
-            }
+            if(!email || !pass) { alert("Enter email and password to signup"); return; }
 
-            auth.signInWithEmailAndPassword(email, pass)
-                .then(() => { 
-                    window.location.href = "dashboard.html"; 
-                })
-                .catch((error) => alert(error.message));
+            try {
+                // Appwrite doesn't need phone S2V for signup!
+                await account.create(ID.unique(), email, pass);
+                alert("Account created! Now click Authorize Access to login.");
+            } catch (error) {
+                alert("Signup Error: " + error.message);
+            }
         }
     </script>
 </body>
