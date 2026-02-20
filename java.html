@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Mastery | PDevelopers Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --sidebar: #161b22;
+            --java-red: #f89820; /* Oracle Java Orange/Red */
+            --accent: #5382a1; /* Java Cup Blue */
+            --text: #c9d1d9;
+            --code-bg: #000;
+        }
+
+        body { margin: 0; display: flex; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; }
+        
+        .sidebar { width: 300px; height: 100vh; background: var(--sidebar); position: fixed; overflow-y: auto; padding: 30px; border-right: 1px solid #30363d; }
+        .sidebar a { display: block; color: #8b949e; text-decoration: none; padding: 12px 0; font-size: 14px; transition: 0.3s; border-bottom: 1px solid #21262d; }
+        .sidebar a:hover { color: var(--java-red); padding-left: 10px; }
+
+        .content { margin-left: 350px; padding: 60px; max-width: 1000px; width: 100%; }
+        h1 { font-size: 3.5rem; color: var(--java-red); margin-bottom: 20px; }
+        
+        .concept-card {
+            background: #161b22;
+            border-radius: 15px;
+            padding: 35px;
+            margin: 35px 0;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .property-title { color: var(--java-red); font-size: 1.8rem; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        code { color: #ff7b72; font-family: 'Consolas', monospace; font-size: 1.1rem; }
+        pre { background: var(--code-bg); padding: 25px; border-radius: 12px; overflow-x: auto; color: #79c0ff; border: 1px solid #30363d; line-height: 1.5; }
+        
+        .note { background: rgba(248, 152, 32, 0.1); border-left: 4px solid var(--java-red); padding: 15px; margin: 20px 0; font-size: 14px; color: #e6edf3; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2 style="color: var(--java-red);"><i class="fab fa-java"></i> Java Syllabus</h2>
+        <a href="#intro">1. JVM, JRE, & JDK</a>
+        <a href="#variables">2. Data Types & Variables</a>
+        <a href="#operators">3. Operators & Math</a>
+        <a href="#conditionals">4. If-Else & Switch</a>
+        <a href="#loops">5. Loops (For, While)</a>
+        <a href="#oop">6. OOPs Concepts (Classes)</a>
+    </nav>
+
+    <main class="content">
+        <h1>Java Architecture</h1>
+        <p>Java is a high-level, class-based, object-oriented programming language designed to have as few implementation dependencies as possible.</p>
+
+        <section id="intro" class="concept-card">
+            <div class="property-title">1. The Ecosystem (JDK vs JRE vs JVM)</div>
+            <p>To run Java, you need to understand how it works under the hood.</p>
+            <ul>
+                <li><strong>JVM (Java Virtual Machine):</strong> The engine that runs the bytecode.</li>
+                <li><strong>JRE (Java Runtime Environment):</strong> JVM + Libraries to run apps.</li>
+                <li><strong>JDK (Java Development Kit):</strong> JRE + Tools to write/compile code.</li>
+            </ul>
+            
+            <div class="note">Remember: "Write Once, Run Anywhere" (WORA) is Java's core philosophy.</div>
+        </section>
+
+        <section id="variables" class="concept-card">
+            <div class="property-title">2. Data Types & Variables</div>
+            <p>Java is <strong>Strongly Typed</strong>, meaning every variable must have a declared type.</p>
+            <pre>
+// Primitive Types
+int age = 25;              // Whole numbers
+double price = 99.99;      // Decimal numbers
+char grade = 'A';          // Single character
+boolean isCoder = true;    // True or False
+
+// Non-Primitive Types
+String name = "PDevelopers"; // Sequence of characters</pre>
+        </section>
+
+        <section id="loops" class="concept-card">
+            <div class="property-title">3. Control Flow (Loops)</div>
+            <p>Loops allow you to execute code multiple times efficiently.</p>
+            <pre>
+// For Loop: When you know how many times to run
+for (int i = 0; i < 5; i++) {
+    System.out.println("Coding in Jhelum...");
+}
+
+// While Loop: Runs as long as condition is true
+while (isReady) {
+    // Keep working
+}</pre>
+        </section>
+
+        
+        <section id="oop" class="concept-card">
+            <div class="property-title">4. Object-Oriented Programming (OOP)</div>
+            <p>This is the heart of Java. Everything is an <strong>Object</strong> created from a <strong>Class</strong>.</p>
+            <pre>
+// Blueprint (Class)
+class Student {
+    String name;
+    void study() {
+        System.out.println(name + " is learning Java.");
+    }
+}
+
+// Execution (Object)
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.name = "Ali";
+        s1.study(); // Output: Ali is learning Java.
+    }
+}</pre>
+        </section>
+
+        <div style="height: 100px;"></div>
+    </main>
+
+</body>
+</html>
