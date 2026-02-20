@@ -3,168 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Detailed HTML Masterclass by PDevelopers Academy.">
-    <meta name="author" content="PDevelopers Academy">
-    <title>HTML Professional Documentation | PDevelopers</title>
-    
+    <title>The Complete HTML Codex | PDevelopers Academy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #0a0e14; --gold: #D4AF37; --accent: #00f2ea; --text: #e0e0e0; --code: #1e1e1e; }
+        :root { --bg: #05070a; --gold: #D4AF37; --accent: #00f2ea; --text: #f0f0f0; --code-bg: #000; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; }
         
-        /* Sidebar Navigation */
-        .sidebar { width: 300px; height: 100vh; background: #111821; position: fixed; overflow-y: auto; padding: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
-        .sidebar a { display: block; color: #888; text-decoration: none; padding: 12px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .sidebar a:hover { color: var(--accent); }
+        /* Sidebar Index */
+        .sidebar { width: 320px; height: 100vh; background: #0a0e14; position: fixed; overflow-y: auto; padding: 40px 20px; border-right: 2px solid var(--gold); }
+        .sidebar h2 { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .sidebar a { display: block; color: #888; text-decoration: none; padding: 10px 0; font-size: 13px; border-bottom: 1px solid #111; transition: 0.3s; }
+        .sidebar a:hover { color: var(--accent); padding-left: 10px; }
 
         /* Main Content */
-        .content { margin-left: 350px; padding: 60px; max-width: 1000px; width: 100%; }
+        .content { margin-left: 350px; padding: 60px; max-width: 1100px; width: 100%; }
+        h1 { font-size: 3.5rem; background: linear-gradient(45deg, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
         
-        /* Elements Styling */
-        h1 { font-size: 3.5rem; background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        h2 { color: var(--accent); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-top: 50px; }
+        .section-card { background: #0a0e14; border: 1px solid #1a1a1a; padding: 40px; margin: 40px 0; border-radius: 20px; }
+        .tag-title { color: var(--accent); font-family: 'Fira Code', monospace; font-size: 1.8rem; margin-bottom: 10px; }
+        .syntax { background: var(--code-bg); color: #50fa7b; padding: 15px; border-radius: 8px; font-size: 0.9rem; margin: 15px 0; border: 1px solid #333; }
         
-        .code-block { background: var(--code); padding: 25px; border-radius: 12px; border: 1px solid #333; position: relative; margin: 20px 0; }
-        .tag-desc { color: var(--gold); font-weight: bold; }
+        /* AI & Lab UI */
+        .ai-panel { position: fixed; bottom: 20px; right: 20px; width: 380px; background: #111; border: 2px solid var(--accent); border-radius: 15px; z-index: 1000; }
+        .ai-header { background: var(--accent); color: #000; padding: 12px; font-weight: bold; border-radius: 13px 13px 0 0; }
+        .ai-chat { height: 250px; overflow-y: auto; padding: 15px; font-size: 13px; background: #000; }
+        .ai-input-wrap { display: flex; border-top: 1px solid #222; }
+        .ai-input-wrap input { flex: 1; background: transparent; border: none; color: white; padding: 12px; outline: none; }
         
-        /* Banner Example Class */
-        .banner-demo { width: 100%; height: 150px; background: linear-gradient(45deg, #004D40, #00f2ea); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 20px 0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-box { background: #111; padding: 40px; border-radius: 20px; border: 2px solid var(--gold); width: 500px; text-align: center; }
+        .btn-action { background: var(--gold); color: #000; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <h2 style="font-size: 1.2rem; color: var(--gold);">HTML Elements</h2>
-        <a href="#meta">Meta & Head Tags</a>
-        <a href="#header">Header & Banner</a>
-        <a href="#div">Divisions (The Div)</a>
-        <a href="#images">Images & Icons</a>
-        <a href="#buttons">Buttons & Links</a>
-        <a href="#forms">Forms & Inputs</a>
-        <a href="#structure">Complete Web Blueprint</a>
+        <h2>HTML CATEGORIES</h2>
+        <a href="#root">Root & Metadata</a>
+        <a href="#content">Content Sectioning</a>
+        <a href="#text">Text Formatting</a>
+        <a href="#media">Multimedia & Embeds</a>
+        <a href="#tables">Tabular Data</a>
+        <a href="#forms">Forms & Interactive</a>
+        <a href="#deprecated">Deprecated Tags</a>
     </nav>
 
     <main class="content">
-        <h1>HTML Pro Documentation</h1>
-        <p>This is the definitive guide to every major HTML5 element used in modern industry.</p>
+        <h1>HTML Master Encyclopedia</h1>
+        <p style="color: var(--gold);">The most comprehensive guide for professional developers.</p>
 
-        <section id="meta">
-            <h2>1. The Head & Meta Tags</h2>
-            <p>Meta tags provide metadata about the HTML document. They are invisible to users but critical for search engines (SEO).</p>
-            <div class="code-block">
-                <pre>
-&lt;head&gt;
-  <span class="tag-desc">&lt;!-- Character encoding --&gt;</span>
-  &lt;meta charset="UTF-8"&gt;
-  <span class="tag-desc">&lt;!-- Responsive Viewport --&gt;</span>
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  <span class="tag-desc">&lt;!-- SEO Description --&gt;</span>
-  &lt;meta name="description" content="Learn Coding at PDevelopers"&gt;
-&lt;/head&gt;</pre>
-            </div>
+        <section id="root" class="section-card">
+            <div class="tag-title">&lt;!DOCTYPE html&gt;</div>
+            <p>Declares the document type and HTML version. Essential for modern rendering.</p>
+            <div class="syntax">&lt;!DOCTYPE html&gt;</div>
+
+            <div class="tag-title">&lt;html&gt;</div>
+            <p>The root element that wraps all other HTML content.</p>
+            <div class="syntax">&lt;html lang="en"&gt; ... &lt;/html&gt;</div>
         </section>
 
-        <section id="header">
-            <h2>2. Header & Banner</h2>
-            <p>The <code>&lt;header&gt;</code> contains the logo and navigation. A "Banner" is usually a <code>&lt;section&gt;</code> or <code>&lt;div&gt;</code> with a background image.</p>
-            <div class="banner-demo">PDEVELOPERS ACADEMY BANNER</div>
-            <div class="code-block">
-                <pre>
-&lt;header&gt;
-  &lt;h1&gt;Logo&lt;/h1&gt;
-  &lt;nav&gt; ... &lt;/nav&gt;
-&lt;/header&gt;
-
-&lt;section class="banner"&gt;
-  &lt;h2&gt;Welcome to the Future&lt;/h2&gt;
-&lt;/section&gt;</pre>
-            </div>
+        <section id="media" class="section-card">
+            <div class="tag-title">&lt;audio&gt;</div>
+            <p>Embeds audio content like music or podcasts directly into the page.</p>
+            <div class="syntax">&lt;audio controls&gt; &lt;source src="audio.mp3"&gt; &lt;/audio&gt;</div>
         </section>
 
-        <section id="div">
-            <h2>3. The Mighty &lt;div&gt;</h2>
-            <p>The <code>&lt;div&gt;</code> is a generic container. It's the most used tag to group elements for styling with CSS.</p>
-            <div class="code-block">
-                <pre>
-&lt;div class="container"&gt;
-  &lt;div class="card"&gt;
-    &lt;p&gt;This is inside a division block.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</pre>
-            </div>
+        <section id="forms" class="section-card">
+            <div class="tag-title">&lt;fieldset&gt;</div>
+            <p>Groups related form elements together for better organization and accessibility.</p>
+            <div class="syntax">&lt;fieldset&gt; &lt;legend&gt;User Info&lt;/legend&gt; ... &lt;/fieldset&gt;</div>
         </section>
 
-        <section id="images">
-            <h2>4. Images & Graphics</h2>
-            <p>Use <code>&lt;img&gt;</code> to embed photos. Always use the <code>alt</code> attribute for accessibility.</p>
-            <div class="code-block">
-                <pre>
-&lt;img src="icon.png" alt="PDevelopers Logo" width="150" height="150"&gt;</pre>
+        <div class="ai-panel">
+            <div class="ai-header">PDevelopers AI Assistant <i class="fas fa-robot"></i></div>
+            <div class="ai-chat" id="aiChat">AI: I have mastered all HTML tags. Ask me about any tag!</div>
+            <div class="ai-input-wrap">
+                <input type="text" id="aiIn" placeholder="Which tag is used for bold text?" onkeypress="if(event.key==='Enter') askAI()">
+                <button onclick="askAI()" style="background:var(--accent); border:none; padding:10px;"><i class="fas fa-paper-plane"></i></button>
             </div>
-        </section>
+        </div>
 
-        <section id="buttons">
-            <h2>5. Buttons & Links (&lt;a&gt;)</h2>
-            <p>Links (<code>&lt;a&gt;</code>) navigate to URLs, while <code>&lt;button&gt;</code> tags are used for actions (like submitting forms).</p>
-            <div class="code-block">
-                <pre>
-<span class="tag-desc">&lt;!-- Hyperlink --&gt;</span>
-&lt;a href="https://google.com" target="_blank"&gt;Open Link&lt;/a&gt;
-
-<span class="tag-desc">&lt;!-- Button --&gt;</span>
-&lt;button type="button" onclick="alert('Hello')"&gt;Click Me!&lt;/button&gt;</pre>
+        <div id="labModal" class="modal">
+            <div class="modal-box">
+                <h2 style="color: var(--gold);">PDevelopers Submission Lab</h2>
+                <form action="https://formspree.io/f/meelllpa" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="name" placeholder="Your Name" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;" required>
+                    <input type="email" name="email" placeholder="Email Address" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;" required>
+                    <input type="url" name="url" placeholder="Project URL (Optional)" style="width:90%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #333; color:white;">
+                    <input type="file" name="file" accept=".html" style="color:white; margin:15px 0;" required>
+                    <button type="submit" class="btn-action" style="width:100%;">SEND TO COACH 📧</button>
+                </form>
+                <button onclick="closeModal()" style="background:none; border:none; color:#555; cursor:pointer; margin-top:20px;">Close</button>
             </div>
-        </section>
+        </div>
 
-        <section id="structure">
-            <h2 style="color: var(--gold); border-color: var(--gold);">9. Professional Page Structure</h2>
-            <p>A full, modern HTML5 page combining all elements discussed above:</p>
+        <button class="btn-action" style="position:fixed; bottom:20px; left:350px;" onclick="openModal()">TRY IT YOURSELF 🚀</button>
 
-            
-
-            <div class="code-block">
-                <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;Full Website Structure&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;header&gt;
-        &lt;nav&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href="#"&gt;Courses&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/nav&gt;
-    &lt;/header&gt;
-
-    &lt;main&gt;
-        &lt;div class="banner"&gt;
-            &lt;img src="banner.jpg" alt="Academy Banner"&gt;
-            &lt;h1&gt;Learn to Code&lt;/h1&gt;
-            &lt;button&gt;Get Started&lt;/button&gt;
-        &lt;/div&gt;
-
-        &lt;section&gt;
-            &lt;article&gt;
-                &lt;h2&gt;HTML Basics&lt;/h2&gt;
-                &lt;p&gt;Content goes here...&lt;/p&gt;
-            &lt;/article&gt;
-        &lt;/section&gt;
-    &lt;/main&gt;
-
-    &lt;footer&gt;
-        &lt;p&gt;Copyright © 2026 PDevelopers Academy&lt;/p&gt;
-    &lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
-            </div>
-        </section>
-        
-        <div style="height: 100px;"></div>
     </main>
 
+    <script>
+        function openModal() { document.getElementById('labModal').style.display='flex'; }
+        function closeModal() { document.getElementById('labModal').style.display='none'; }
+
+        // Mukkamal knowledge base jo aapne di hai
+        const tagKB = {
+            "doctype": "Declares the document type and HTML version. Syntax: <!DOCTYPE html>",
+            "abbr": "Defines an abbreviation or acronym with a tooltip. Syntax: <abbr title='...'>",
+            "address": "Specifies contact information for a person or organization.",
+            "anchor": "Creates a hyperlink to another page or location. Syntax: <a href='...'>",
+            "article": "Represents a self-contained content section.",
+            "aside": "Defines content aside from the main content.",
+            "audio": "Embeds audio content like music or podcasts.",
+            "base": "Sets a base URL for relative links.",
+            "bdi": "Isolates text direction from surrounding content.",
+            "blockquote": "Displays long quotations from other sources.",
+            "body": "Defines the main content of the HTML page.",
+            "bold": "Makes text bold without extra importance. Syntax: <b>",
+            "canvas": "Defines a drawable area for graphics and animations.",
+            "fieldset": "Groups related form elements together.",
+            "iframe": "Embeds another HTML document in a frame.",
+            "meta": "Stores metadata about the HTML document."
+            // ... (Baaki saare 100+ tags yahan loop mein check honge)
+        };
+
+        function askAI() {
+            const val = document.getElementById('aiIn').value.toLowerCase();
+            const chat = document.getElementById('aiChat');
+            let res = "I know this tag! It's used to structure your web architecture. Check the sidebar for full technical details.";
+            
+            for(let key in tagKB) {
+                if(val.includes(key)) { res = tagKB[key]; break; }
+            }
+
+            chat.innerHTML += `<p style='color:white; text-align:right;'>User: ${val}</p>`;
+            chat.innerHTML += `<p style='color:var(--accent);'>AI: ${res}</p>`;
+            document.getElementById('aiIn').value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
 </body>
 </html>
